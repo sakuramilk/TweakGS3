@@ -44,6 +44,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     private ListPreference mNandroidManage;
     private PreferenceScreen mFlashInstallZip;
     private PreferenceScreen mPartitionBackup;
+    private PreferenceScreen mTimeAdjust;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,9 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
 
         mPartitionBackup = (PreferenceScreen)findPreference("partition_backup");
         mPartitionBackup.setOnPreferenceClickListener(this);
+
+        mTimeAdjust = (PreferenceScreen)findPreference("time_adjust");
+        mTimeAdjust.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -122,6 +126,17 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             SystemCommand.partition_backup(backupPath);
             Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
 
+        } else if (preference == mTimeAdjust) {
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.reboot);
+            alertDialogBuilder.setMessage(R.string.recovery_summary);
+            alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    SystemCommand.time_adjust_recovery();
+                }
+            });
+            alertDialogBuilder.setNegativeButton(android.R.string.no, null);
+            alertDialogBuilder.create().show();
         }
         return false;
     }

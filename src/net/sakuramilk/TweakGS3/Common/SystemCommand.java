@@ -16,8 +16,6 @@
 
 package net.sakuramilk.TweakGS3.Common;
 
-import java.io.File;
-
 import android.util.Log;
 
 public class SystemCommand {
@@ -300,6 +298,22 @@ public class SystemCommand {
         process.write("cd " + path + "\n");
         process.write("md5sum * > backup.md5\n");
         process.term();
+    }
+    
+    public static void time_adjust_recovery() {
+        Log.d(TAG, "execute time_adjust_recovery");
+
+        RootProcess process = new RootProcess();
+        if (!process.init()) {
+            return;
+        }
+
+        String backup_path = Misc.getSdcardPath(true) + Constant.CWM_DIR;
+        process.write("mkdir -p " + backup_path + "\n");
+        process.write("date +%s > " + backup_path + "/.date.now\n");
+        process.term();
+
+        reboot("recovery");
     }
 
     public static String df(String device) {

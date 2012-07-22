@@ -80,6 +80,8 @@
     <string name="partition_backup_title">Partition backup</string>
     <string name="partitiion_backup_summary">Any pertition backup</string>
     <string name="backup_completed">Backup completed. Please keep the copy on your PC</string>
+    <string name="time_adjust_title">Adjust time</string>
+    <string name="time_adjust_summary">Adjust time in recvoery mode</string>
 
     <!-- General -->
     <string name="general_title">General</string>

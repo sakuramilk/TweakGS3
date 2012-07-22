@@ -17,7 +17,8 @@
 package net.sakuramilk.TweakGS3.Common;
 
 public class Constant {
-    public static final String CWM_BACKUP_DIR = "/clockworkmod/backup";
+	public static final String CWM_DIR = "/clockworkmod";
+    public static final String CWM_BACKUP_DIR = CWM_DIR + "/backup";
     public static final String TGS3_BACKUP_DIR = "/tweakgs3/backup";
     public static final String MNT_ROOT = "/mnt";
 }
