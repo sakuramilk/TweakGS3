@@ -124,6 +124,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
             String value = newValue.toString();
             mSetting.setScalingGovernor(value);
             mSetting.saveScalingGovernor(value);
+            mGovernorList.setValue(value);
             mGovernorList.setSummary(Misc.getCurrentValueText(this, value));
             return false;
 

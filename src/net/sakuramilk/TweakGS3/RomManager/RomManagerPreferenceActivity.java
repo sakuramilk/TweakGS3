@@ -151,7 +151,8 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
                 public void onFinishTextInput(CharSequence input) {
                     String inputName = input.toString();
                     inputName = inputName.replace("\n", "").trim();
-                    SystemCommand.backup_rom(sdcardPath + inputName);
+                    String sdPath = sdcardPath.replace("/mnt/external_sd", "/emmc");
+                    SystemCommand.backup_rom(sdPath + Constant.CWM_BACKUP_DIR +  "/" + inputName);
                     SystemCommand.reboot("recovery");
                 }
             });

@@ -66,7 +66,9 @@ public class SystemCommand {
         if (!process.init()) {
             return;
         }
-        process.write("echo \"backup_rom(\\\"" + targetDir + "\\\");\" >> /cache/recovery/extendedcommand\n");
+        process.write("echo \"ui_print(\\\"Tweak Galaxy S3 ROM Manager\\\");\" > /cache/recovery/extendedcommand\n");
+        process.write("echo \"ui_print(\\\"`date`\\\");\" >> /cache/recovery/extendedcommand\n");
+        process.write("echo \"assert(backup_rom(\\\"" + targetDir + "\\\"));\" >> /cache/recovery/extendedcommand\n");
         process.term();
     }
 
