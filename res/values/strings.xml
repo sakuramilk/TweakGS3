@@ -19,7 +19,8 @@
 <resources>
 
     <!-- Common -->
-    <string name="app_name">Tweak Galaxy S3</string>
+    <string name="app_name">TweakS3</string>
+    <string name="app_long_name">Tweak Galaxy S3</string>
     <string name="current_value">Current:</string>
     <string name="saved_value">Saved:</string>
     <string name="go_back">Go back</string>
