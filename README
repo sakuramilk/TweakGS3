@@ -1,5 +1,5 @@
 
-  *** TweakGS3 V0.2.0 ****
+  *** TweakGS3 V0.2.1 ****
 
   SC-06Dの設定アプリです
   要root
@@ -22,6 +22,7 @@
 
 
 　■更新履歴
+    V0.2.1    ROM Mangerでbackup/resoreを行った際に外部SDのパスが正しくない不具合の修正
 
     V0.2.0    mDNIeコントロールサポート
               Vibratorコントロールサポート

@@ -53,7 +53,8 @@ public class RestoreDirPickerActivity extends FilePickerActivity {
             alertDialogBuilder.setMessage(R.string.do_restore);
             alertDialogBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    SystemCommand.restore_rom(file.getPath());
+                    String targetPath = file.getPath().replace(Misc.getSdcardPath(false), "/emmc");
+                    SystemCommand.restore_rom(targetPath);
                     SystemCommand.reboot("recovery");
                 }
             });
