@@ -62,9 +62,7 @@
         <service android:name=".Notification.KeyBacklightFlashService" />
         <service android:name=".Service.BootCompletedService" />
 
-        <activity
-            android:label="@string/app_long_name"
-            android:name=".MainPreferenceActivity" >
+        <activity android:name=".MainPreferenceActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

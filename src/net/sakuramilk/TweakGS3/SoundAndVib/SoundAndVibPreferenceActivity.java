@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,33 +49,31 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
             mSoundPlayFreqLock.setOnPreferenceChangeListener(this);
         }
 
-        if (Misc.isFeatureAospEnabled()) {
-            mVibNormalLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_NORMAL_LEVEL);
-            if (mSetting.isEnableVibLevel()) {
-                mVibNormalLevel.setEnabled(true);
-                String maxLevel = mSetting.getVibMaxLevel();
-                String curLevel = mSetting.getVibLevel();
-                mCurVibLevel = curLevel;
-                mVibNormalLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
-                mVibNormalLevel.setOnPreferenceChangeListener(this);
-                mVibNormalLevel.setOnPreferenceDoneListener(this);
-                mVibNormalLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
+        mVibNormalLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_NORMAL_LEVEL);
+        if (mSetting.isEnableVibLevel()) {
+            mVibNormalLevel.setEnabled(true);
+            String maxLevel = mSetting.getVibMaxLevel();
+            String curLevel = mSetting.getVibLevel();
+            mCurVibLevel = curLevel;
+            mVibNormalLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
+            mVibNormalLevel.setOnPreferenceChangeListener(this);
+            mVibNormalLevel.setOnPreferenceDoneListener(this);
+            mVibNormalLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
+        }
+        
+        mVibIncomingLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_INCOMING_LEVEL);
+        if (mSetting.isEnableVibLevel()) {
+            mVibIncomingLevel.setEnabled(true);
+            String maxLevel = mSetting.getVibMaxLevel();
+            String curLevel = mSetting.loadVibIncomingLevel();
+            if (Misc.isNullOfEmpty(curLevel)) {
+                curLevel = maxLevel;
+                mSetting.saveVibIncomingLevel(maxLevel);
             }
-            
-            mVibIncomingLevel = (SeekBarPreference)findPreference(SoundAndVibSetting.KEY_VIB_INCOMING_LEVEL);
-            if (mSetting.isEnableVibLevel()) {
-                mVibIncomingLevel.setEnabled(true);
-                String maxLevel = mSetting.getVibMaxLevel();
-                String curLevel = mSetting.loadVibIncomingLevel();
-                if (Misc.isNullOfEmpty(curLevel)) {
-                    curLevel = maxLevel;
-                    mSetting.saveVibIncomingLevel(maxLevel);
-                }
-                mVibIncomingLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
-                mVibIncomingLevel.setOnPreferenceChangeListener(this);
-                mVibIncomingLevel.setOnPreferenceDoneListener(this);
-                mVibIncomingLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
-            }
+            mVibIncomingLevel.setValue(Integer.parseInt(maxLevel), 0, Integer.parseInt(curLevel));
+            mVibIncomingLevel.setOnPreferenceChangeListener(this);
+            mVibIncomingLevel.setOnPreferenceDoneListener(this);
+            mVibIncomingLevel.setSummary(Misc.getCurrentValueText(this, curLevel));
         }
     }
 
@@ -102,8 +100,8 @@ public class SoundAndVibPreferenceActivity extends PreferenceActivity implements
         } else if (mVibNormalLevel == preference) {
             mSetting.setVibLevel(objValue.toString());
             Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            Misc.sleep(100);
             vib.vibrate(60);
-            Misc.sleep(60);
             mSetting.setVibLevel(mCurVibLevel);
         }
         return false;

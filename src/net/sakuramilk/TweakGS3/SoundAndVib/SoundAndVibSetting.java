@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 sakuramilk <c.sakuramilk@gmail.com>
+ * Copyright (C) 2011-2012 sakuramilk <c.sakuramilk@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ public class SoundAndVibSetting extends SettingManager {
     public static final String KEY_VIB_INCOMING_LEVEL = "vib_incoming_level";
 
     private final SysFs mSysFsSoundPlayFreqLock = new SysFs("/sys/devices/virtual/sound/sound_mc1n2/freq_lock");
-    private final SysFs mSysFsVibLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level");
-    private final SysFs mSysFsVibMaxLevel = new SysFs("/sys/devices/platform/tspdrv/vibrator_level_max");
+    private final SysFs mSysFsVibLevel = new SysFs("/sys/devices/platform/tspdrv/vib_ctrl_level");
+    private final SysFs mSysFsVibMaxLevel = new SysFs("/sys/devices/platform/tspdrv/vib_ctrl_level_max");
 
     public SoundAndVibSetting(Context context, RootProcess rootProcess) {
         super(context, rootProcess);

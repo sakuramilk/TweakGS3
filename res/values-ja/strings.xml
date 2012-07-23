@@ -164,18 +164,17 @@
 
     <!-- Display -->
     <string name="display_title">画面設定</string>
-    <string name="lcd_category">LCD</string>
-    <string name="lcd_type">LCDタイプ</string>
-    <string name="gamma_adjust">ガンマ調整</string>
     <string name="mdnie_category">mDNie</string>
     <string name="mdnie_function">mDNie機能</string>
     <string name="mdnie_function_on">mDNie機能は有効</string>
     <string name="mdnie_function_off">mDNie機能は無効</string>
-    <string name="mdnie_mode">色合い調整</string>
-    <string name="mdnie_mode_on">色合い調整は有効</string>
-    <string name="mdnie_mode_off">色合い調整は無効</string>
-    <string name="mdnie_color_cb">色合い(青成分)</string>
-    <string name="mdnie_color_cr">色合い(赤成分)</string>
+    <string name="mdnie_ctrl_enable">mDNie調整</string>
+    <string name="mdnie_ctrl_enable_on">mDNie調整は有効</string>
+    <string name="mdnie_ctrl_enable_off">mDNie調整は無効</string>
+    <string name="mdnie_ctrl_red">赤</string>
+    <string name="mdnie_ctrl_green">緑</string>
+    <string name="mdnie_ctrl_blue">青</string>
+    <string name="mdnie_ctrl_sharpness">シャープネス</string>
 
     <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">サウンド/バイブ設定</string>

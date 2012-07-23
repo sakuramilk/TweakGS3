@@ -19,7 +19,8 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tweakGS3="http://schemas.android.com/apk/res/net.sakuramilk.TweakGS3"
-    android:key="parent">
+    android:key="parent"
+    android:title="@string/app_long_name">
 
     <!-- General -->
     <PreferenceScreen
@@ -62,17 +63,14 @@
     </PreferenceScreen>
 
     <!-- Display -->
-    <!--
     <PreferenceScreen
         android:title="@string/display_title"
-        android:icon="@drawable/ic_settings_display"
-        android:enabled="false">
+        android:icon="@drawable/ic_settings_display">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.sakuramilk.TweakGS3"
             android:targetClass="net.sakuramilk.TweakGS3.Display.DisplayPreferenceActivity" />
     </PreferenceScreen>
-    -->
 
     <!-- Notification -->
     <!--

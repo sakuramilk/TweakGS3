@@ -19,7 +19,7 @@
 <resources>
 
     <!-- Common -->
-    <string name="app_name">TweakS3</string>
+    <string name="app_name">TweakGS3</string>
     <string name="app_long_name">Tweak Galaxy S3</string>
     <string name="current_value">Current:</string>
     <string name="saved_value">Saved:</string>
@@ -168,18 +168,17 @@
 
     <!-- Display -->
     <string name="display_title">Display setting</string>
-    <string name="lcd_category">LCD</string>
-    <string name="lcd_type">LCD type</string>
-    <string name="gamma_adjust">Gammma adjust</string>
     <string name="mdnie_category">mDNie</string>
     <string name="mdnie_function">mDNie function</string>
-    <string name="mdnie_function_on">mDNie enabled</string>
-    <string name="mdnie_function_off">mDNie disabled</string>
-    <string name="mdnie_mode">Color adjust</string>
-    <string name="mdnie_mode_on">Color adjust enabled</string>
-    <string name="mdnie_mode_off">Color adjust disabled</string>
-    <string name="mdnie_color_cb">Color (Blue element)</string>
-    <string name="mdnie_color_cr">Color (Red element)</string>
+    <string name="mdnie_function_on">mDNie function enabled</string>
+    <string name="mdnie_function_off">mDNie function disabled</string>
+    <string name="mdnie_ctrl_enable">mDNie control</string>
+    <string name="mdnie_ctrl_enable_on">mDNie control enabled</string>
+    <string name="mdnie_ctrl_enable_off">mDNie control disabled</string>
+    <string name="mdnie_ctrl_red">Red</string>
+    <string name="mdnie_ctrl_green">Green</string>
+    <string name="mdnie_ctrl_blue">Blue</string>
+    <string name="mdnie_ctrl_sharpness">Sharpness</string>
 
     <!-- Sound and Vibration -->
     <string name="sound_and_vib_title">Sound and Vib setting</string>
