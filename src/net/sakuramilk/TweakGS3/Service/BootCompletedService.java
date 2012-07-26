@@ -16,8 +16,11 @@
 
 package net.sakuramilk.TweakGS3.Service;
 
+import net.sakuramilk.TweakGS3.Common.Convert;
 import net.sakuramilk.TweakGS3.Common.RootProcess;
+import net.sakuramilk.TweakGS3.Common.SysFs;
 import net.sakuramilk.TweakGS3.CpuControl.CpuControlSetting;
+import net.sakuramilk.TweakGS3.Display.DisplaySetting;
 import net.sakuramilk.TweakGS3.Dock.DockSetting;
 import net.sakuramilk.TweakGS3.General.GeneralSetting;
 import net.sakuramilk.TweakGS3.General.LowMemKillerSetting;
@@ -35,6 +38,8 @@ public class BootCompletedService extends Service {
     private static final String TAG = "TweakGS3::BootCompletedService";
     private static Context mContext;
     private static BootCompletedThread mThread;
+    private static final SysFs mSafeMode = new SysFs("/proc/sys/kernel/safe_mode");
+    private static final SysFs mBootCompleted = new SysFs("/proc/sys/kernel/boot_completed");
 
     class BootCompletedThread extends Thread {
         public void run() {
@@ -42,9 +47,21 @@ public class BootCompletedService extends Service {
             Log.d(TAG, "Root init s");
             rootProcess.init();
             Log.d(TAG, "Root init e");
-            
+
             // check safe mode
-    
+            if (mSafeMode.exists()) {
+            	if (Convert.toBoolean(mSafeMode.read(rootProcess))) {
+            		return;
+            	}
+            }
+
+            if (mBootCompleted.exists()) {
+            	if (Convert.toBoolean(mBootCompleted.read(rootProcess))) {
+            		Log.d(TAG, "Already initialized");
+            		return;
+            	}
+            }
+
             // General
             GeneralSetting generalSetting = new GeneralSetting(mContext, rootProcess);
             Log.d(TAG, "start: General Setting");
@@ -55,6 +72,11 @@ public class BootCompletedService extends Service {
             VirtualMemorySetting vmSetting = new VirtualMemorySetting(mContext, rootProcess);
             Log.d(TAG, "start: VirtualMemory Setting");
             vmSetting.setOnBoot();
+
+            // Display
+            DisplaySetting displaySetting = new DisplaySetting(mContext, rootProcess);
+            Log.d(TAG, "start: Display Setting");
+            displaySetting.setOnBoot();
     
             // CpuControl
             CpuControlSetting cpuControlSetting = new CpuControlSetting(mContext, rootProcess);
@@ -73,7 +95,11 @@ public class BootCompletedService extends Service {
             DockSetting dockSetting = new DockSetting(mContext, rootProcess);
             Log.d(TAG, "start: Dock Setting");
             dockSetting.setOnBoot();
-            
+
+            if (mBootCompleted.exists()) {
+            	mBootCompleted.write("1", rootProcess);
+            }
+
             rootProcess.term();
             rootProcess = null;
         }

@@ -94,6 +94,7 @@ public class DisplayPreferenceActivity extends PreferenceActivity implements
         if (mMdnieForceDisable == preference) {
             mSetting.setMdnieForceDisable(!(Boolean)objValue);
             return true;
+
         } else if (mMdnieCtrlEnable == preference) {
             mSetting.setMdnieCtrlEnable(((Boolean)objValue));
             return true;

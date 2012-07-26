@@ -56,11 +56,11 @@ public class DisplaySetting extends SettingManager {
     }
 
     public void setMdnieForceDisable(boolean value) {
-        mSysFsMdnieForceDisable.write(value ? "1" : "0", mRootProcess);
+        mSysFsMdnieForceDisable.write(Convert.toString(value), mRootProcess);
     }
 
     public boolean loadMdnieForceDisable() {
-        return getBooleanValue(KEY_MDNIE_FORCE_DISABLE);
+        return getBooleanValue(KEY_MDNIE_FORCE_DISABLE, false);
     }
 
     public void saveMdnieForceDisable(boolean value) {
@@ -170,7 +170,7 @@ public class DisplaySetting extends SettingManager {
     @Override
     public void setOnBoot() {
         if (isEnableMdnieForceDisable()) {
-            setMdnieForceDisable(loadMdnieForceDisable());
+            setMdnieForceDisable(!loadMdnieForceDisable());
         }
         if (isEnableMdnieCtrlEnable()) {
             setMdnieCtrlEnable(loadMdnieCtrlEnable());
@@ -180,15 +180,15 @@ public class DisplaySetting extends SettingManager {
             }
             value = loadMdnieCtrlGreen();
             if (!Misc.isNullOfEmpty(value)) {
-                setMdnieCtrlRed(value);
+                setMdnieCtrlGreen(value);
             }
             value = loadMdnieCtrlBlue();
             if (!Misc.isNullOfEmpty(value)) {
-                setMdnieCtrlRed(value);
+                setMdnieCtrlBlue(value);
             }
             value = loadMdnieCtrlSharpness();
             if (!Misc.isNullOfEmpty(value)) {
-                setMdnieCtrlRed(value);
+                setMdnieCtrlSharpness(value);
             }
         }
     }
