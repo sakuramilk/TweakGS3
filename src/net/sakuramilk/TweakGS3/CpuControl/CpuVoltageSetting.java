@@ -27,58 +27,35 @@ public class CpuVoltageSetting extends SettingManager {
 
     public static final String KEY_CPU_VOLT_ROOT_PREF = "root_pref";
     public static final String KEY_CPU_VOLT_CTRL_BASE = "cpu_vc_";
-    public static final String KEY_ASV_GROUP_CATEGORY = "cpu_voltage_asv_group_category";
-    public static final String KEY_ASV_GROUP = "asv_group";
 
-    private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
-    private final SysFs mSysFsUV_mV_table = new SysFs(CRTL_PATH + "/UV_mV_table");
-    private final SysFs mSysFsAsvGroup = new SysFs(CRTL_PATH + "/asv_group");
+    private final SysFs mSysFsVddLevels = new SysFs("/sys/devices/system/cpu/cpufreq/vdd_table/vdd_levels");
 
     public CpuVoltageSetting(Context context) {
         super(context);
     }
 
     public boolean isEnableVoltageControl() {
-        return mSysFsUV_mV_table.exists();
-    }
-
-    public String getAsvGroup() {
-    	String value = mSysFsAsvGroup.read(mRootProcess);
-    	if (!Misc.isNullOfEmpty(value)) {
-    		String[] v = value.split(" ");
-    		return (v.length > 1) ? v[1] : null;
-    	}
-    	return null;
-    }
-
-    public void setAsvGroup(String value) {
-    	mSysFsAsvGroup.write(value, mRootProcess);
-    }
-
-    public String loadAsvGroup() {
-        return getStringValue(KEY_ASV_GROUP);
-    }
-
-    public void saveAsvGroup(String value) {
-        setValue(KEY_ASV_GROUP, value);
+        return mSysFsVddLevels.exists();
     }
 
     public String[] getVoltageTable() {
         ArrayList<String> ret = new ArrayList<String>();
-        String[] values = mSysFsUV_mV_table.readMuitiLine(mRootProcess);
+        String[] values = mSysFsVddLevels.readMuitiLine(mRootProcess);
         for (String value : values) {
-            String voltage = value.substring(value.indexOf(" ") + 1).split(" ")[0];
+            String v = value.replace(" ", "");
+            String voltage = v.substring(v.indexOf(":") + 1);
             ret.add(voltage);
         }
         return ret.toArray(new String[0]);
     }
 
     public void setVoltageTable(String[] voltageTable) {
-        String value = "";
-        for (String volt : voltageTable) {
-            value += volt + " ";
+        CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
+        String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
+        for (int i = 0; i < voltageTable.length; i++) {
+            String value = availableFrequencies[i] + " " + voltageTable[i];
+            mSysFsVddLevels.write(value, mRootProcess);
         }
-        mSysFsUV_mV_table.write(value, mRootProcess);
     }
 
     public String loadVoltage(String key) {
@@ -87,11 +64,6 @@ public class CpuVoltageSetting extends SettingManager {
 
     @Override
     public void setOnBoot() {
-    	String asvGroup = loadAsvGroup();
-    	if (!Misc.isNullOfEmpty(asvGroup)) {
-    		setAsvGroup(asvGroup);
-    	}
-
         String[] voltTable = getVoltageTable();
         if (voltTable != null) {
         	CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
@@ -114,10 +86,14 @@ public class CpuVoltageSetting extends SettingManager {
 
     @Override
     public void reset() {
-    	clearValue(KEY_ASV_GROUP);
         String[] voltTable = getVoltageTable();
-        for (int i = 0; i < voltTable.length; i++) {
-            clearValue(KEY_CPU_VOLT_CTRL_BASE + i);
+        if (voltTable != null) {
+            CpuControlSetting cpuSetting = new CpuControlSetting(mContext);
+            String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
+            for (int i = 0; i < voltTable.length; i++) {
+                String freq = String.valueOf(Integer.parseInt(availableFrequencies[i]) / 1000);
+                clearValue(KEY_CPU_VOLT_CTRL_BASE + freq);
+            }
         }
     }
 }
