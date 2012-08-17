@@ -79,7 +79,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
         mMaxFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MAX_FREQ);
         mMaxFreq.setEntries(availableFreqEntries);
         mMaxFreq.setEntryValues(availableFrequencies);
-        mMaxFreq.setValue(curMaxFreqValue);
+        mMaxFreq.setValue(savedMaxFreqValue);
         mMaxFreq.setOnPreferenceChangeListener(this);
         mMaxFreq.setSummary(Misc.getCurrentAndSavedValueText(
                 this, getFreqText(curMaxFreqValue), getFreqText(savedMaxFreqValue)));
@@ -87,7 +87,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
         mMinFreq = (ListPreference)findPreference(CpuControlSetting.KEY_CPU_MIN_FREQ);
         mMinFreq.setEntries(availableFreqEntries);
         mMinFreq.setEntryValues(availableFrequencies);
-        mMinFreq.setValue(curMinFreqValue);
+        mMinFreq.setValue(savedMinFreqValue);
         mMinFreq.setOnPreferenceChangeListener(this);
         mMinFreq.setSummary(Misc.getCurrentAndSavedValueText(
                 this, getFreqText(curMinFreqValue), getFreqText(savedMinFreqValue)));
