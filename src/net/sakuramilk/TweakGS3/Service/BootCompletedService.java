@@ -51,6 +51,7 @@ public class BootCompletedService extends Service {
             // check safe mode
             if (mSafeMode.exists()) {
             	if (Convert.toBoolean(mSafeMode.read(rootProcess))) {
+            		Log.i(TAG, "Safe mode");
             		return;
             	}
             }
