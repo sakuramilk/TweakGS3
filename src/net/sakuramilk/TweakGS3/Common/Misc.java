@@ -20,9 +20,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StatFs;
+import android.util.Log;
 
 import net.sakuramilk.TweakGS3.R;
 import net.sakuramilk.TweakGS3.Parts.ConfirmDialog;
@@ -34,17 +36,26 @@ public class Misc {
     static final SysFs sSysFsBuildTarget = new SysFs("proc/sys/kernel/build_target");
     static int sBuildTarget = -1;
 
-    public static String getSdcardPath(boolean isInternal) {
+    @SuppressLint("SdCardPath")
+	public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
             // internal sdcard path is fixed /sdcard
-            return "/sdcard";
+        	return "/sdcard";
         } else {
             // external sdcard path search
-            File file = new File("/mnt/external_sd"); // aosp ics
-            if (file.exists()) {
-                return "/mnt/external_sd";
-            }
-            return "/mnt/extSdCard"; // samsung ics
+        	String[] externalSdCardPath = {
+        			"/mnt/emmc",        // aosp gb
+        			"/mnt/external_sd", // aosp ics
+        			"/mnt/extSdCard",   // samsung ics / aosp jb
+        	};
+        	for (String path : externalSdCardPath) {
+        		File file = new File(path);
+        		if (file.exists()) {
+        			return path;
+        		}
+        	}
+        	Log.e("Misc", "unmatch sdcard path");
+        	return "/";
         }
     }
 
