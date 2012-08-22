@@ -70,77 +70,49 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public boolean getCrtEffect() {
-        String ret = SystemCommand.get_prop("persist.tGS3.crt_effect", "0");
+        String ret = SystemCommand.get_prop("persist.tgs3.crt_effect", "0");
         // NOTICE: crt effect enable is false, not enable is true.
         return "0".equals(ret) ? true : false;
     }
 
     public void setCrtEffect(boolean value) {
-        SystemCommand.set_prop("persist.tGS3.crt_effect", (value ? "0" : "1"));
+        SystemCommand.set_prop("persist.tgs3.crt_effect", (value ? "0" : "1"));
     }
 
-/*
     public boolean getLogger() {
-        String ret = SystemCommand.get_prop("persist.tGS3.logger", "0");
+        String ret = mTweakPorp.getValue("ro.tgs3.logger", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setLogger(boolean value) {
-        SystemCommand.set_prop("persist.tGS3.logger", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.logger", (value ? "1" : "0"));
     }
 
     public boolean getCifs() {
-        String ret = SystemCommand.get_prop("persist.tGS3.cifs", "0");
+        String ret = mTweakPorp.getValue("ro.tgs3.cifs", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setCifs(boolean value) {
-        SystemCommand.set_prop("persist.tGS3.cifs", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.cifs", (value ? "1" : "0"));
     }
 
     public boolean getNtfs() {
-        String ret = SystemCommand.get_prop("persist.tGS3.ntfs", "0");
+        String ret = mTweakPorp.getValue("ro.tgs3.ntfs", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setNtfs(boolean value) {
-        SystemCommand.set_prop("persist.tGS3.ntfs", (value ? "1" : "0"));
-    }
-*/
-    public boolean getLogger() {
-        String ret = mTweakPorp.getValue("ro.tGS3.logger", "0");
-        return "0".equals(ret) ? false : true;
-    }
-
-    public void setLogger(boolean value) {
-        mTweakPorp.setValue("ro.tGS3.logger", (value ? "1" : "0"));
-    }
-
-    public boolean getCifs() {
-        String ret = mTweakPorp.getValue("ro.tGS3.cifs", "0");
-        return "0".equals(ret) ? false : true;
-    }
-
-    public void setCifs(boolean value) {
-        mTweakPorp.setValue("ro.tGS3.cifs", (value ? "1" : "0"));
-    }
-
-    public boolean getNtfs() {
-        String ret = mTweakPorp.getValue("ro.tGS3.ntfs", "0");
-        return "0".equals(ret) ? false : true;
-    }
-
-    public void setNtfs(boolean value) {
-        mTweakPorp.setValue("ro.tGS3.ntfs", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.ntfs", (value ? "1" : "0"));
     }
 
     public boolean getJ4fs() {
-        String ret = mTweakPorp.getValue("ro.tGS3.j4fs", "0");
+        String ret = mTweakPorp.getValue("ro.tgs3.j4fs", "0");
         return "0".equals(ret) ? false : true;
     }
 
     public void setJ4fs(boolean value) {
-        mTweakPorp.setValue("ro.tGS3.j4fs", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.j4fs", (value ? "1" : "0"));
     }
 
     public String getUsbConfig() {

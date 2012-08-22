@@ -37,7 +37,6 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mLogger;
     private CheckBoxPreference mCifs;
     private CheckBoxPreference mNtfs;
-    private CheckBoxPreference mJ4fs;
     private ListPreference mUsbConfig;
     private CheckBoxPreference mSwitchExtarnal;
 
@@ -59,7 +58,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mCameraSound = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_CAMERA_SOUND);
         mCameraSound.setChecked(value);
         mCameraSound.setOnPreferenceChangeListener(this);
-        
+
         String lcdDensity = mSetting.getLcdDensity();
         mLcdDensity = (SeekBarPreference)findPreference(SystemPropertySetting.KEY_LCD_DENSITY);
         mLcdDensity.setValue(300, 120, Integer.valueOf(lcdDensity));
@@ -85,11 +84,6 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mNtfs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_NTFS);
         mNtfs.setChecked(value);
         mNtfs.setOnPreferenceChangeListener(this);
-
-        value = mSetting.getJ4fs();
-        mJ4fs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_J4FS);
-        mJ4fs.setChecked(value);
-        mJ4fs.setOnPreferenceChangeListener(this);
 
         String strValue = mSetting.getUsbConfig(); 
         mUsbConfig = (ListPreference)findPreference(SystemPropertySetting.KEY_USB_CONFIG);
@@ -134,11 +128,6 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             boolean newValue = (Boolean)objValue;
             mSetting.setNtfs(newValue);
             mNtfs.setChecked(newValue);
-            // not return true
-        } else if (mJ4fs == preference) {
-            boolean newValue = (Boolean)objValue;
-            mSetting.setJ4fs(newValue);
-            mJ4fs.setChecked(newValue);
             // not return true
         } else if (mUsbConfig == preference) {
             String newValue = objValue.toString();

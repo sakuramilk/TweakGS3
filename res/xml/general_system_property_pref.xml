@@ -54,11 +54,6 @@
         android:title="@string/sysprop_ntfs_title"
         android:summaryOn="@string/sysprop_ntfs_summary_on"
         android:summaryOff="@string/sysprop_ntfs_summary_off" />
-    <CheckBoxPreference
-        android:key="sysprop_j4fs"
-        android:title="@string/sysprop_j4fs_title"
-        android:summaryOn="@string/sysprop_j4fs_summary_on"
-        android:summaryOff="@string/sysprop_j4fs_summary_off" />
     <ListPreference
         android:key="sysprop_usb_config"
         android:title="@string/sysprop_usb_config_title"

@@ -22,7 +22,7 @@ import net.sakuramilk.TweakGS3.Common.SystemCommand;
 public class TweakPropery extends PropertyManager {
 
     public TweakPropery() {
-        super("/data/tweakGS3.prop");
+        super("/data/tweakgs3.prop");
 
         // if not exists, create prop file.
         if (!mFile.exists()) {

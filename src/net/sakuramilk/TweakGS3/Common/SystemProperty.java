@@ -32,17 +32,17 @@ public class SystemProperty extends PropertyManager {
     }
 
     public void backup() {
-        File file = new File("/system/build.prop.tg2.bk");
+        File file = new File("/system/build.prop.tg3.bk");
         if (!file.exists()) {
             SystemCommand.remount_system_rw();
-            SystemCommand.copy("/system/build.prop", "/system/build.prop.tg2.bk");
+            SystemCommand.copy("/system/build.prop", "/system/build.prop.tg3.bk");
             SystemCommand.remount_system_ro();
         }
     }
 
     public void restore() {
         SystemCommand.remount_system_rw();
-        SystemCommand.move("/system/build.prop.tg2.bk", "/system/build.prop");
+        SystemCommand.move("/system/build.prop.tg3.bk", "/system/build.prop");
         SystemCommand.remount_system_ro();
     }
 }
