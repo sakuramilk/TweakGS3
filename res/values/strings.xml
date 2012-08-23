@@ -145,6 +145,7 @@
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPU control</string>
+    <string name="cpu_info_category">SoC info</string>
     <string name="cpu_governor_category">Governor</string>
     <string name="cpu_governor_select">Governor select</string>
     <string name="cpu_governor_setting">Governor setting</string>
@@ -159,6 +160,7 @@
     <string name="cpu_voltage_asv_group_category_title">Voltage table</string>
     <string name="cpu_voltage_value_category_title">Voltage value</string>
     <string name="cpu_asv_group_change_message">Are you sure you want the current voltage setting will be reset when you change the ASV group, even if you change the settings?</string>
+    <string name="cpu_info_copy">Do you want to copy SoC information to the clipboard?</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPU control</string>

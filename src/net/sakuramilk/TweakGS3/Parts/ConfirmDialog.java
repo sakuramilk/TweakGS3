@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 public class ConfirmDialog extends AlertDialog {
 
     private ResultListener mListener = null;
+    private Context mContext;
 
     public interface ResultListener {
         public void onYes();
@@ -31,6 +32,7 @@ public class ConfirmDialog extends AlertDialog {
     public ConfirmDialog(Context context) {
         super(context);
 
+        mContext = context;
         setIcon(android.R.drawable.ic_dialog_info);
         setButton(BUTTON_POSITIVE, context.getText(android.R.string.yes), new OnClickListener() {
             @Override
@@ -46,11 +48,11 @@ public class ConfirmDialog extends AlertDialog {
         });
     }
 
-    public void show(Context parent, int title, int message) {
-        show(parent, parent.getText(title), parent.getText(message));
+    public void show(int title, int message) {
+        show(mContext.getText(title), mContext.getText(message));
     }
 
-    public void show(Context parent, CharSequence title, CharSequence message) {
+    public void show(CharSequence title, CharSequence message) {
         setTitle(title);
         setMessage(message);
         show();

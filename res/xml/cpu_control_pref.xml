@@ -72,4 +72,11 @@
             android:title="@string/set_on_boot" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="cpu_info_category"
+        android:title="@string/cpu_info_category">
+         <net.sakuramilk.TweakGS3.Parts.InfoPreferenceScreen
+            android:key="cpu_info" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -155,7 +155,7 @@ public class Misc {
                 SystemCommand.reboot(null);
             }
         });
-        dlg.show(context, android.R.string.dialog_alert_title, message);
+        dlg.show(android.R.string.dialog_alert_title, message);
     }
 
     public static final int KERNEL_VER_3_0_0 = 3000;

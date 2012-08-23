@@ -26,6 +26,7 @@ import net.sakuramilk.TweakGS3.Common.SysFs;
 
 public class CpuControlSetting extends SettingManager {
 
+	public static final String KEY_CPU_INFO = "cpu_info";
     public static final String KEY_CPU_GOV_LIST = "cpu_governor_list";
     public static final String KEY_CPU_GOV_SETTING = "cpu_governor_setting";
     public static final String KEY_CPU_GOV_SET_ON_BOOT = "cpu_governor_set_on_boot";
@@ -35,6 +36,18 @@ public class CpuControlSetting extends SettingManager {
     public static final String KEY_CPU_MIN_SUSPEND_FREQ = "cpu_min_suspend_freq";
     public static final String KEY_CPU_FREQ_SET_ON_BOOT = "cpu_freq_set_on_boot";
     public static final String KEY_CPU_VOLT_SET_ON_BOOT = "cpu_volt_set_on_boot";
+    
+    private static final String CRTL_PATH_SOC = "/sys/devices/system/soc/soc0";
+    private final SysFs mSysFsSocAccessoryChip = new SysFs(CRTL_PATH_SOC + "/accessory_chip");
+    private final SysFs mSysFsSocBuildId = new SysFs(CRTL_PATH_SOC + "/build_id");
+    private final SysFs mSysFsSocHwPlatform = new SysFs(CRTL_PATH_SOC + "/hw_platform");
+    private final SysFs mSysFsSocId = new SysFs(CRTL_PATH_SOC + "/id");
+    private final SysFs mSysFsSocKaritPart = new SysFs(CRTL_PATH_SOC + "/krait_part");
+    private final SysFs mSysFsSocPlatformSubType = new SysFs(CRTL_PATH_SOC + "/platform_subtype");
+    private final SysFs mSysFsSocPlatformVersion = new SysFs(CRTL_PATH_SOC + "/platform_version");
+    private final SysFs mSysFsSocRawId = new SysFs(CRTL_PATH_SOC + "/raw_id");
+    private final SysFs mSysFsSocRawVersion = new SysFs(CRTL_PATH_SOC + "/raw_version");
+    private final SysFs mSysFsSocVersion = new SysFs(CRTL_PATH_SOC + "/version");
 
     private static final String CRTL_PATH = "/sys/devices/system/cpu/cpu0/cpufreq";
     private static final String PATH_SCALING_AVAILABLE_FREQS_KERNEL_3_0 = "/sys/power/cpufreq_table";
@@ -64,6 +77,21 @@ public class CpuControlSetting extends SettingManager {
 
     public CpuControlSetting(Context context) {
         this(context, null);
+    }
+    
+    public String getSocInfo() {
+    	String value;
+    	value = "accessory chip: " + mSysFsSocAccessoryChip.read(mRootProcess) + "\n";
+    	value += "build id: " + mSysFsSocBuildId.read(mRootProcess) + "\n";
+    	value += "hw platform: " + mSysFsSocHwPlatform.read(mRootProcess) + "\n";
+    	value += "id: " + mSysFsSocId.read(mRootProcess) + "\n";
+    	value += "karit part: " + mSysFsSocKaritPart.read(mRootProcess) + "\n";
+    	value += "platform sub type: " + mSysFsSocPlatformSubType.read(mRootProcess) + "\n";
+    	value += "platform version: " + mSysFsSocPlatformVersion.read(mRootProcess) + "\n";
+    	value += "raw id: " + mSysFsSocRawId.read(mRootProcess) + "\n";
+    	value += "raw version: " + mSysFsSocRawVersion.read(mRootProcess) + "\n";
+    	value += "version: " + mSysFsSocVersion.read(mRootProcess) + "\n";
+    	return value;
     }
 
     public String[] getAvailableGovernors() {

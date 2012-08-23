@@ -141,6 +141,7 @@
 
     <!-- CPU Control -->
     <string name="cpu_control_title">CPUコントロール</string>
+    <string name="cpu_info_category">SoC情報</string>
     <string name="cpu_governor_category">ガバナ</string>
     <string name="cpu_governor_select">ガバナ選択</string>
     <string name="cpu_governor_setting">ガバナ設定</string>
@@ -155,6 +156,7 @@
     <string name="cpu_voltage_asv_group_category_title">電圧テーブル</string>
     <string name="cpu_voltage_value_category_title">電圧設定</string>
     <string name="cpu_asv_group_change_message">ASVグループを変更すると現在の電圧設定がリセットされます、設定を変更してもよろしいですか？</string>
+    <string name="cpu_info_copy">SoC情報をクリップボードにコピーしますか？</string>
 
     <!-- GPU Control -->
     <string name="gpu_control_title">GPUコントロール</string>

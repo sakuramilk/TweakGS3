@@ -18,6 +18,8 @@ package net.sakuramilk.TweakGS3.CpuControl;
 
 import net.sakuramilk.TweakGS3.R;
 import net.sakuramilk.TweakGS3.Common.Misc;
+import net.sakuramilk.TweakGS3.Parts.ConfirmDialog;
+import net.sakuramilk.TweakGS3.Parts.InfoPreferenceScreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -26,6 +28,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.text.ClipboardManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,6 +36,7 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
     implements OnPreferenceChangeListener, OnPreferenceClickListener {
 
     private CpuControlSetting mSetting;
+    private InfoPreferenceScreen mCpuInfo;
     private ListPreference mGovernorList;
     private PreferenceScreen mGovernorSetting;
     private ListPreference mMaxFreq;
@@ -116,6 +120,12 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
             mMinSuspendFreq.setSummary(Misc.getCurrentAndSavedValueText(
                     this, getFreqText(curMinSuspendFreqValue), getFreqText(savedMinSuspendFreqValue)));
         }
+        
+        // Info
+        mCpuInfo = (InfoPreferenceScreen)findPreference(CpuControlSetting.KEY_CPU_INFO);
+        String value = mSetting.getSocInfo();
+        mCpuInfo.setInfo(value);
+        mCpuInfo.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -170,6 +180,16 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
             Intent intent = new Intent(getApplicationContext(), CpuGovernorPreferenceActivity.class);
             intent.putExtra("governor", mSetting.getScalingGovernor());
             this.startActivity(intent);
+        } else if (preference == mCpuInfo) {
+        	final ConfirmDialog confirmDialog = new ConfirmDialog(this);
+            confirmDialog.setResultListener(new ConfirmDialog.ResultListener() {
+                @Override
+                public void onYes() {
+                	ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE); 
+                	cm.setText(mCpuInfo.getInfo());
+                }
+            });
+            confirmDialog.show(R.string.cpu_info_category, R.string.cpu_info_copy);
         }
         return false;
     }

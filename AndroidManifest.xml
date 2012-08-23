@@ -20,8 +20,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.sakuramilk.TweakGS3"
     android:installLocation="auto"
-    android:versionName="0.3.1"
-    android:versionCode="3010">
+    android:versionName="0.3.2"
+    android:versionCode="3020">
 
     <uses-sdk android:minSdkVersion="10"
               android:targetSdkVersion="15" />
@@ -70,7 +70,7 @@
         </activity>
 
         <!-- Parts -->
-        <activity android:name=".Parts.IconPreferenceScreen" />
+        <activity android:name=".Parts.InfoPreferenceScreen" />
         <activity android:name=".Parts.FilePickerActivity" />
         <activity android:name=".Parts.SeekBarPreference" />
 

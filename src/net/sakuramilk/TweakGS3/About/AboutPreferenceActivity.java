@@ -84,7 +84,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
             });
-            confirmDialog.show(this, R.string.all_reset_title, R.string.all_reset_summary);
+            confirmDialog.show(R.string.all_reset_title, R.string.all_reset_summary);
 
         } else if (preference == mRecommend) {
             final ConfirmDialog confirmDialog = new ConfirmDialog(this);
@@ -118,7 +118,7 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
             });
-            confirmDialog.show(this, R.string.all_recommend_title, R.string.all_recommend_summary);
+            confirmDialog.show(R.string.all_recommend_title, R.string.all_recommend_summary);
 
         } else if (preference == mCheckUpdate) {
             Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=net.sakuramilk.TweakGS3");
