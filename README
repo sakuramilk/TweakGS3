@@ -1,5 +1,5 @@
 
-  *** TweakGS3 V0.3.1 ****
+  *** TweakGS3 V0.3.2 ****
 
   SC-06Dの設定アプリです
   要root
@@ -20,9 +20,12 @@
   ・LowMemKiller設定値調整
   ・VirtualMemory設定値調整
   ・3G Network設定の最適化
+  ・SoC情報表示
 
 
 　■更新履歴
+
+    V0.3.2    SoC情報表示対応
 
     V0.3.1    CPU上限/下限の初期値を保存値に変更
 
