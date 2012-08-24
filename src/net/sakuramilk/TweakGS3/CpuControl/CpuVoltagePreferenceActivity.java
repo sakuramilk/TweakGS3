@@ -18,6 +18,8 @@ package net.sakuramilk.TweakGS3.CpuControl;
 
 import java.util.ArrayList;
 
+import net.sakuramilk.TweakGS3.CpuControl.CpuControlSetting;
+import net.sakuramilk.TweakGS3.CpuControl.CpuVoltageSetting;
 import net.sakuramilk.TweakGS3.R;
 import net.sakuramilk.TweakGS3.Common.Misc;
 import net.sakuramilk.TweakGS3.Parts.ApplyButtonPreferenceActivity;
@@ -40,19 +42,14 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     private String[] mCurVoltTable;
     private String[] mSavedVoltTable;
     
-    private void setVoltageSummary(Preference pref, String curVolt, String savedVolt) {
-        pref.setSummary(Misc.getCurrentAndSavedValueText(this,
-                String.valueOf(Integer.valueOf(curVolt) / 1000) + "mV",
-                (savedVolt == null ? getText(R.string.none).toString() :
-                    String.valueOf(Integer.valueOf(savedVolt) / 1000) + "mV")));
-    }
-
     private void setValues() {
         for (int i = 0; i < mCurVoltTable.length; i++) {
             SeekBarPreference pref = mFreqPrefList.get(i);
-            pref.setValue(1500000, 700000, 12500, mSavedVoltTable[i] == null ?
+            pref.setValue(1500, 700, mSavedVoltTable[i] == null ?
                     Integer.valueOf(mCurVoltTable[i]) : Integer.valueOf(mSavedVoltTable[i]));
-            setVoltageSummary(pref, mCurVoltTable[i], mSavedVoltTable[i]);
+            pref.setSummary(Misc.getCurrentAndSavedValueText(this,
+                    mCurVoltTable[i] + "mV",
+                    (mSavedVoltTable[i] == null ? getText(R.string.none).toString() : mSavedVoltTable[i] + "mV")));
         }
     }
 
@@ -68,8 +65,9 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         CpuControlSetting cpuSetting = new CpuControlSetting(this);
         String[] availableFrequencies = cpuSetting.getAvailableFrequencies();
         ArrayList<String> list = new ArrayList<String>();
-        for (String freq : availableFrequencies) {
-            list.add(String.valueOf(Integer.parseInt(freq) / 1000) + "MHz");
+        for (int i = 0; i < availableFrequencies.length; i++) {
+        	String freq = availableFrequencies[availableFrequencies.length - i - 1];
+        	list.add(String.valueOf(Integer.parseInt(freq) / 1000) + "MHz");
         }
         String[] availableFreqEntries = list.toArray(new String[0]);
 
@@ -77,7 +75,7 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         PreferenceScreen rootPref = (PreferenceScreen)prefManager.findPreference(CpuVoltageSetting.KEY_CPU_VOLT_ROOT_PREF);
         if (mSetting.isEnableVoltageControl()) {
             mFreqPrefList = new ArrayList<SeekBarPreference>();
-            mCurVoltTable = mSetting.getVoltageTable();
+            mCurVoltTable = mSetting.getCurrentVoltageTable();
             mSavedVoltTable = new String[mCurVoltTable.length];
             for (int i = 0; i < availableFrequencies.length; i++) {
                 SeekBarPreference pref = new SeekBarPreference(this, null);
@@ -87,9 +85,6 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
                 pref.setKey(key);
                 pref.setTitle(availableFreqEntries[i]);
                 pref.setOnPreferenceDoneListener(this);
-                pref.setUnit("mV");
-                pref.setUnitScale(1000);
-                pref.setValueScale(5000, 25000);
                 rootPref.addPreference(pref);
                 mFreqPrefList.add(pref);
             }
@@ -104,7 +99,7 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
     @Override
     public void onClick(View v) {
         mApplyButton.setEnabled(false);
-        mCurVoltTable = mSetting.getVoltageTable();
+        mCurVoltTable = mSetting.getCurrentVoltageTable();
         for (int i = 0; i < mSavedVoltTable.length; i++) {
             if (mSavedVoltTable[i] != null) {
                 mCurVoltTable[i] = mSavedVoltTable[i];
@@ -112,6 +107,12 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         }
         mSetting.setVoltageTable(mCurVoltTable);
         setValues();
+        
+        int length = mFreqPrefList.size();
+        for (int i = 0; i < length; i++) {
+        	SeekBarPreference pref = mFreqPrefList.get(i);
+        	mSetting.saveVoltage(pref.getKey(), mCurVoltTable[i]);
+        }
     }
 
     @Override
@@ -119,20 +120,28 @@ public class CpuVoltagePreferenceActivity extends ApplyButtonPreferenceActivity
         mApplyButton.setEnabled(true);
         int index = mFreqPrefList.indexOf(preference);
         mSavedVoltTable[index] = newValue;
-        setVoltageSummary(preference, mCurVoltTable[index], mSavedVoltTable[index]);
-        return true;
+        preference.setSummary(Misc.getCurrentAndSavedValueText(this,
+                mCurVoltTable[index] + "mV", newValue + "mV"));
+        return false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean ret = super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.reset_menu, menu);
+        getMenuInflater().inflate(R.menu.default_menu, menu);
         return ret;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+        case R.id.menu_recommend:
+        	if (mSetting.isEnableVoltageControl()) {
+        		mSavedVoltTable = mSetting.getDefaulVoltageTable();
+        		setValues();
+        		mApplyButton.setEnabled(true);
+        	}
+            return true;
         case R.id.menu_reset:
             mSetting.reset();
             return true;
