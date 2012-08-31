@@ -1,5 +1,5 @@
 
-  *** TweakGS3 V0.3.3 ****
+  *** TweakGS3 V0.3.4 ****
 
   SC-06Dの設定アプリです
   要root
@@ -24,6 +24,8 @@
 
 
 　■更新履歴
+
+    V0.3.4    外部SDのInstall zipに失敗する不具合の修正
 
     V0.3.3    Voltage Controlのおすすめ設定でchipのdefault値をセットする機能を追加
                 ※電圧調整画面でメニューキー押下でメニューが出ます
