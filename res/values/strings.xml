@@ -83,6 +83,7 @@
     <string name="backup_completed">Backup completed. Please keep the copy on your PC</string>
     <string name="time_adjust_title">Adjust time</string>
     <string name="time_adjust_summary">Adjust time in recvoery mode</string>
+    <string name="partitiion_backup_progress">Running a important pertition backup</string>
 
     <!-- General -->
     <string name="general_title">General</string>

@@ -21,10 +21,17 @@ import net.sakuramilk.TweakGS3.Common.Constant;
 import net.sakuramilk.TweakGS3.Common.Misc;
 import net.sakuramilk.TweakGS3.Common.SystemCommand;
 import net.sakuramilk.TweakGS3.Parts.TextInputDialog;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -45,11 +52,14 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
     private PreferenceScreen mFlashInstallZip;
     private PreferenceScreen mPartitionBackup;
     private PreferenceScreen mTimeAdjust;
+	private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rom_manager_pref);
+
+        mContext = this;
 
         mRebootNormal = (PreferenceScreen)findPreference("reboot_normal");
         mRebootNormal.setOnPreferenceClickListener(this);
@@ -75,7 +85,8 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
         mTimeAdjust.setOnPreferenceClickListener(this);
     }
 
-    @Override
+    @SuppressLint("HandlerLeak")
+	@Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mRebootNormal) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -121,10 +132,35 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             this.startActivity(intent);
 
         } else if (preference == mPartitionBackup) {
+            PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+            final WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "Tgs2ImageCreate");
+            wakeLock.acquire();
+            final ProgressDialog dlg = new ProgressDialog(this);
+            dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dlg.setTitle(R.string.app_name);
+            dlg.setMessage(getText(R.string.partitiion_backup_progress));
+            dlg.show();
+
             String backupDir = Misc.getSdcardPath(true) + Constant.TGS3_BACKUP_DIR;
-            String backupPath = backupDir + "/" + Misc.getDateString();
-            SystemCommand.partition_backup(backupPath);
-            Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
+            final String backupPath = backupDir + "/" + Misc.getDateString();
+            
+            final Handler handler = new Handler() {
+        		@Override
+                public void handleMessage(Message msg) {
+        			dlg.dismiss();
+        			wakeLock.release();
+                    Toast.makeText(mContext, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
+                }
+            };
+
+            Thread thread = new Thread(new Runnable() {
+				@Override
+                public void run() {
+                    SystemCommand.partition_backup(backupPath);
+                    handler.sendEmptyMessage(0);
+                }
+            });
+            thread.start();
 
         } else if (preference == mTimeAdjust) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

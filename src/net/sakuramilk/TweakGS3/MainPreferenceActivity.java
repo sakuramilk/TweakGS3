@@ -21,13 +21,21 @@ import java.io.File;
 import net.sakuramilk.TweakGS3.Common.Constant;
 import net.sakuramilk.TweakGS3.Common.Misc;
 import net.sakuramilk.TweakGS3.Common.SystemCommand;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 
+@SuppressLint("HandlerLeak")
 public class MainPreferenceActivity extends PreferenceActivity {
 
     @Override
@@ -68,9 +76,35 @@ public class MainPreferenceActivity extends PreferenceActivity {
         String backupDir = Misc.getSdcardPath(true) + Constant.TGS3_BACKUP_DIR;
         File file = new File(backupDir);
         if (!file.exists()) {
-            String backupPath = backupDir + "/" + Misc.getDateString();
-        	SystemCommand.partition_backup(backupPath);
-        	Toast.makeText(this, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
+            PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+            final WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "Tgs2ImageCreate");
+            wakeLock.acquire();
+            final ProgressDialog dlg = new ProgressDialog(this);
+            dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dlg.setTitle(R.string.app_name);
+            dlg.setMessage(getText(R.string.partitiion_backup_progress));
+            dlg.show();
+
+            final String backupPath = backupDir + "/" + Misc.getDateString();
+            final Context context = this;
+
+            final Handler handler = new Handler() {
+        		@Override
+                public void handleMessage(Message msg) {
+        			dlg.dismiss();
+        			wakeLock.release();
+                    Toast.makeText(context, getText(R.string.backup_completed) + "\n" + backupPath, Toast.LENGTH_LONG).show();
+                }
+            };
+
+            Thread thread = new Thread(new Runnable() {
+				@Override
+                public void run() {
+                    SystemCommand.partition_backup(backupPath);
+                    handler.sendEmptyMessage(0);
+                }
+            });
+            thread.start();
         }
     }
 }
