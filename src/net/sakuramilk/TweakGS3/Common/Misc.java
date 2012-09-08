@@ -37,25 +37,25 @@ public class Misc {
     static int sBuildTarget = -1;
 
     @SuppressLint("SdCardPath")
-	public static String getSdcardPath(boolean isInternal) {
+    public static String getSdcardPath(boolean isInternal) {
         if (isInternal) {
             // internal sdcard path is fixed /sdcard
-        	return "/sdcard";
+            return "/sdcard";
         } else {
             // external sdcard path search
-        	String[] externalSdCardPath = {
-        			"/mnt/emmc",        // aosp gb
-        			"/mnt/external_sd", // aosp ics
-        			"/mnt/extSdCard",   // samsung ics / aosp jb
-        	};
-        	for (String path : externalSdCardPath) {
-        		File file = new File(path);
-        		if (file.exists()) {
-        			return path;
-        		}
-        	}
-        	Log.e("Misc", "unmatch sdcard path");
-        	return "/";
+            String[] externalSdCardPath = {
+                    "/mnt/emmc",        // aosp gb
+                    "/mnt/external_sd", // aosp ics
+                    "/mnt/extSdCard",   // samsung ics / aosp jb
+            };
+            for (String path : externalSdCardPath) {
+                File file = new File(path);
+                if (file.exists()) {
+                    return path;
+                }
+            }
+            Log.e("Misc", "unmatch sdcard path");
+            return "/";
         }
     }
 
@@ -166,10 +166,19 @@ public class Misc {
         if (Misc.isNullOfEmpty(ret)) {
             return KERNEL_VER_2_6_0;
         } else {
-            String[] ver = ret.substring(0, ret.indexOf('-')).split("\\.");
-            return (Integer.valueOf(ver[0]) * 1000 +
-                     Integer.valueOf(ver[1]) * 100 +
-                     Integer.valueOf(ver[2]));
+            String[] ver;
+            if (ret.indexOf('-') > 0) {
+                ver = ret.substring(0, ret.indexOf('-')).split("\\.");
+            } else {
+                ver = ret.split("\\.");
+            }
+            if (ver.length == 3) {
+                return (Integer.valueOf(ver[0]) * 1000 +
+                        Integer.valueOf(ver[1]) * 100 +
+                        Integer.valueOf(ver[2]));
+            } else {
+                return KERNEL_VER_2_6_0;    
+            }
         }
     }
     
