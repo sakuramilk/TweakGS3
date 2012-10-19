@@ -34,11 +34,13 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private CheckBoxPreference mCameraSound;
     private SeekBarPreference mLcdDensity;
     private CheckBoxPreference mCrtEffect;
-    private CheckBoxPreference mLogger;
-    private CheckBoxPreference mCifs;
-    private CheckBoxPreference mNtfs;
+//    private CheckBoxPreference mLogger;
+//    private CheckBoxPreference mCifs;
+//    private CheckBoxPreference mNtfs;
     private ListPreference mUsbConfig;
     private CheckBoxPreference mSwitchExtarnal;
+    private SeekBarPreference mMusicVolumeSteps;
+    private CheckBoxPreference mScrollingCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
 
         String lcdDensity = mSetting.getLcdDensity();
         mLcdDensity = (SeekBarPreference)findPreference(SystemPropertySetting.KEY_LCD_DENSITY);
-        mLcdDensity.setValue(300, 120, Integer.valueOf(lcdDensity));
+        mLcdDensity.setValue(480, 120, Integer.valueOf(lcdDensity));
         mLcdDensity.setSummary(Misc.getCurrentValueText(this, lcdDensity));
         mLcdDensity.setOnPreferenceDoneListener(this);
 
@@ -70,20 +72,20 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mCrtEffect.setChecked(value);
         mCrtEffect.setOnPreferenceChangeListener(this);
 
-        value = mSetting.getLogger();
-        mLogger = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_LOGGER);
-        mLogger.setChecked(value);
-        mLogger.setOnPreferenceChangeListener(this);
-
-        value = mSetting.getCifs();
-        mCifs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_CIFS);
-        mCifs.setChecked(value);
-        mCifs.setOnPreferenceChangeListener(this);
-
-        value = mSetting.getNtfs();
-        mNtfs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_NTFS);
-        mNtfs.setChecked(value);
-        mNtfs.setOnPreferenceChangeListener(this);
+//        value = mSetting.getLogger();
+//        mLogger = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_LOGGER);
+//        mLogger.setChecked(value);
+//        mLogger.setOnPreferenceChangeListener(this);
+//
+//        value = mSetting.getCifs();
+//        mCifs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_CIFS);
+//        mCifs.setChecked(value);
+//        mCifs.setOnPreferenceChangeListener(this);
+//
+//        value = mSetting.getNtfs();
+//        mNtfs = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_NTFS);
+//        mNtfs.setChecked(value);
+//        mNtfs.setOnPreferenceChangeListener(this);
 
         String strValue = mSetting.getUsbConfig(); 
         mUsbConfig = (ListPreference)findPreference(SystemPropertySetting.KEY_USB_CONFIG);
@@ -96,6 +98,17 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mSwitchExtarnal = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SWITCH_EXTERNAL);
         mSwitchExtarnal.setChecked(value);
         mSwitchExtarnal.setOnPreferenceChangeListener(this);
+        
+        String volSteps = mSetting.getMusicVolumeSteps();
+        mMusicVolumeSteps = (SeekBarPreference)findPreference(SystemPropertySetting.KEY_MUSIC_VOLUME_STEPS);
+        mMusicVolumeSteps.setValue(100, 5, Integer.valueOf(volSteps));
+        mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, volSteps));
+        mMusicVolumeSteps.setOnPreferenceDoneListener(this);
+        
+        value = mSetting.getScrollingCache();
+        mScrollingCache = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SCROLLING_CACHE);
+        mScrollingCache.setChecked(value);
+        mScrollingCache.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -114,21 +127,21 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mSetting.setCrtEffect(newValue);
             mCrtEffect.setChecked(newValue);
             // not return true
-        } else if (mLogger == preference) {
-            boolean newValue = (Boolean)objValue;
-            mSetting.setLogger(newValue);
-            mLogger.setChecked(newValue);
-            // not return true
-        } else if (mCifs == preference) {
-            boolean newValue = (Boolean)objValue;
-            mSetting.setCifs(newValue);
-            mCifs.setChecked(newValue);
-            // not return true
-        } else if (mNtfs == preference) {
-            boolean newValue = (Boolean)objValue;
-            mSetting.setNtfs(newValue);
-            mNtfs.setChecked(newValue);
-            // not return true
+//        } else if (mLogger == preference) {
+//            boolean newValue = (Boolean)objValue;
+//            mSetting.setLogger(newValue);
+//            mLogger.setChecked(newValue);
+//            // not return true
+//        } else if (mCifs == preference) {
+//            boolean newValue = (Boolean)objValue;
+//            mSetting.setCifs(newValue);
+//            mCifs.setChecked(newValue);
+//            // not return true
+//        } else if (mNtfs == preference) {
+//            boolean newValue = (Boolean)objValue;
+//            mSetting.setNtfs(newValue);
+//            mNtfs.setChecked(newValue);
+//            // not return true
         } else if (mUsbConfig == preference) {
             String newValue = objValue.toString();
             mSetting.setUsbConfig(newValue);
@@ -140,6 +153,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             mSetting.setSwitchExternal(newValue);
             mSwitchExtarnal.setChecked(newValue);
             // not return true
+        } else if (mScrollingCache == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setScrollingCache(newValue);
+            mScrollingCache.setChecked(newValue);
+            // not return true
         }
         return false;
     }
@@ -149,6 +167,10 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         if (mLcdDensity == preference) {
             mSetting.setLcdDensity(newValue);
             mLcdDensity.setSummary(Misc.getCurrentValueText(this, newValue));
+            // not return true
+        } else if (mMusicVolumeSteps == preference) {
+            mSetting.setMusicVolumeSteps(newValue);
+            mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, newValue));
             // not return true
         }
         return false;

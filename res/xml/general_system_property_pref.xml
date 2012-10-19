@@ -39,6 +39,7 @@
         android:title="@string/sysprop_crt_effect_title"
         android:summaryOn="@string/sysprop_crt_effect_summary_on"
         android:summaryOff="@string/sysprop_crt_effect_summary_off" />
+    <!--
     <CheckBoxPreference
         android:key="sysprop_android_logger"
         android:title="@string/sysprop_android_logger_title"
@@ -54,6 +55,7 @@
         android:title="@string/sysprop_ntfs_title"
         android:summaryOn="@string/sysprop_ntfs_summary_on"
         android:summaryOff="@string/sysprop_ntfs_summary_off" />
+    -->
     <ListPreference
         android:key="sysprop_usb_config"
         android:title="@string/sysprop_usb_config_title"
@@ -64,5 +66,14 @@
         android:title="@string/sysprop_switch_external_title"
         android:summaryOn="@string/sysprop_switch_external_summary_on"
         android:summaryOff="@string/sysprop_switch_external_summary_off" />
+    <net.sakuramilk.TweakGS3.Parts.SeekBarPreference
+        android:key="sysprop_music_volume_steps"
+        android:title="@string/sysprop_music_volume_steps_title"
+        android:dialogTitle="@string/sysprop_music_volume_steps_title" />
+    <CheckBoxPreference
+        android:key="sysprop_scrolling_cache"
+        android:title="@string/sysprop_scrolling_cache_title"
+        android:summaryOn="@string/sysprop_scrolling_cache_summary_on"
+        android:summaryOff="@string/sysprop_scrolling_cache_summary_off" />
 
 </PreferenceScreen>
