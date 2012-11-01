@@ -17,14 +17,14 @@
 package net.sakuramilk.TweakGS3.About;
 
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.RootProcess;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.RootProcess;
 import net.sakuramilk.TweakGS3.Dock.DockSetting;
 import net.sakuramilk.TweakGS3.General.GeneralSetting;
 import net.sakuramilk.TweakGS3.General.LowMemKillerSetting;
 import net.sakuramilk.TweakGS3.General.SystemPropertySetting;
 import net.sakuramilk.TweakGS3.General.VirtualMemorySetting;
-import net.sakuramilk.TweakGS3.Parts.ConfirmDialog;
+import net.sakuramilk.widget.ConfirmDialog;
 import net.sakuramilk.TweakGS3.SoundAndVib.HwVolumeSetting;
 import net.sakuramilk.TweakGS3.SoundAndVib.SoundAndVibSetting;
 import android.content.Context;
@@ -83,6 +83,10 @@ public class AboutPreferenceActivity extends PreferenceActivity
                     sysPropSetting.reset();
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             confirmDialog.show(R.string.all_reset_title, R.string.all_reset_summary);
 
@@ -117,6 +121,10 @@ public class AboutPreferenceActivity extends PreferenceActivity
 
                     Misc.confirmReboot(mContext, R.string.reboot_reflect_comfirm);
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             confirmDialog.show(R.string.all_recommend_title, R.string.all_recommend_summary);
 

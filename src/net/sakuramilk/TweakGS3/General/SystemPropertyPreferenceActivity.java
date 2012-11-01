@@ -17,9 +17,9 @@
 package net.sakuramilk.TweakGS3.General;
 
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Parts.SeekBarPreference;
-import net.sakuramilk.TweakGS3.Parts.SeekBarPreference.OnSeekBarPreferenceDoneListener;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.widget.SeekBarPreference;
+import net.sakuramilk.widget.SeekBarPreference.OnSeekBarPreferenceDoneListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;

@@ -16,8 +16,8 @@
 
 package net.sakuramilk.TweakGS3.SoundAndVib;
 
-import net.sakuramilk.TweakGS3.Common.Convert;
-import net.sakuramilk.TweakGS3.Common.SystemCommand;
+import net.sakuramilk.util.Convert;
+import net.sakuramilk.util.SystemCommand;
 
 public class BootSoundSetting {
     

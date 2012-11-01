@@ -17,9 +17,9 @@
 package net.sakuramilk.TweakGS3.CpuControl;
 
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Parts.ConfirmDialog;
-import net.sakuramilk.TweakGS3.Parts.InfoPreferenceScreen;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.widget.ConfirmDialog;
+import net.sakuramilk.widget.InfoPreferenceScreen;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -188,6 +188,10 @@ public class CpuControlPreferenceActivity extends PreferenceActivity
                 	ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE); 
                 	cm.setText(mCpuInfo.getInfo());
                 }
+
+				@Override
+				public void onCancel() {
+				}
             });
             confirmDialog.show(R.string.cpu_info_category, R.string.cpu_info_copy);
         }

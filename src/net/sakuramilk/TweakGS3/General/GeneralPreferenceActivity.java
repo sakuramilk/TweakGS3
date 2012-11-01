@@ -17,7 +17,7 @@
 package net.sakuramilk.TweakGS3.General;
 
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Misc;
+import net.sakuramilk.util.Misc;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;

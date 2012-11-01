@@ -35,22 +35,22 @@
             android:summaryOn="@string/mdnie_ctrl_enable_on"
             android:summaryOff="@string/mdnie_ctrl_enable_off"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS3.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_ctrl_red"
             android:title="@string/mdnie_ctrl_red"
             android:dialogTitle="@string/mdnie_ctrl_red"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS3.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_ctrl_green"
             android:title="@string/mdnie_ctrl_green"
             android:dialogTitle="@string/mdnie_ctrl_green"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS3.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_ctrl_blue"
             android:title="@string/mdnie_ctrl_blue"
             android:dialogTitle="@string/mdnie_ctrl_blue"
             android:enabled="false" />
-        <net.sakuramilk.TweakGS3.Parts.SeekBarPreference
+        <net.sakuramilk.widget.SeekBarPreference
             android:key="disp_mdnie_ctrl_sharpness"
             android:title="@string/mdnie_ctrl_sharpness"
             android:dialogTitle="@string/mdnie_ctrl_sharpness"

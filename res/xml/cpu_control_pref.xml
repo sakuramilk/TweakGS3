@@ -75,7 +75,7 @@
     <PreferenceCategory
         android:key="cpu_info_category"
         android:title="@string/cpu_info_category">
-         <net.sakuramilk.TweakGS3.Parts.InfoPreferenceScreen
+         <net.sakuramilk.widget.InfoPreferenceScreen
             android:key="cpu_info" />
     </PreferenceCategory>
 

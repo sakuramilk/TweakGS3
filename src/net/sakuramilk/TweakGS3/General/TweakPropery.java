@@ -16,13 +16,13 @@
 
 package net.sakuramilk.TweakGS3.General;
 
-import net.sakuramilk.TweakGS3.Common.PropertyManager;
-import net.sakuramilk.TweakGS3.Common.SystemCommand;
+import net.sakuramilk.util.PropertyManager;
+import net.sakuramilk.util.SystemCommand;
 
 public class TweakPropery extends PropertyManager {
 
     public TweakPropery() {
-        super("/data/tweakgs3.prop");
+        super("/data/TweakGS3.prop");
 
         // if not exists, create prop file.
         if (!mFile.exists()) {

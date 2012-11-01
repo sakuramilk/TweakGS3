@@ -16,11 +16,12 @@
 
 package net.sakuramilk.TweakGS3.RomManager;
 
+import net.sakuramilk.TweakGS3.Config;
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Constant;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.SystemCommand;
-import net.sakuramilk.TweakGS3.Parts.TextInputDialog;
+import net.sakuramilk.util.Constant;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
+import net.sakuramilk.widget.TextInputDialog;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -141,7 +142,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             dlg.setMessage(getText(R.string.partitiion_backup_progress));
             dlg.show();
 
-            String backupDir = Misc.getSdcardPath(true) + Constant.TGS3_BACKUP_DIR;
+            String backupDir = Misc.getSdcardPath(true) + Config.TGS3_BACKUP_DIR;
             final String backupPath = backupDir + "/" + Misc.getDateString();
             
             final Handler handler = new Handler() {
@@ -156,7 +157,7 @@ public class RomManagerPreferenceActivity extends PreferenceActivity
             Thread thread = new Thread(new Runnable() {
 				@Override
                 public void run() {
-                    SystemCommand.partition_backup(backupPath);
+                    SystemCommand.partition_backup_for_gs3(backupPath);
                     handler.sendEmptyMessage(0);
                 }
             });

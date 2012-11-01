@@ -17,11 +17,11 @@
 package net.sakuramilk.TweakGS3.Display;
 
 import android.content.Context;
-import net.sakuramilk.TweakGS3.Common.Convert;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.RootProcess;
-import net.sakuramilk.TweakGS3.Common.SettingManager;
-import net.sakuramilk.TweakGS3.Common.SysFs;
+import net.sakuramilk.util.Convert;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.RootProcess;
+import net.sakuramilk.util.SettingManager;
+import net.sakuramilk.util.SysFs;
 
 public class DisplaySetting extends SettingManager {
 

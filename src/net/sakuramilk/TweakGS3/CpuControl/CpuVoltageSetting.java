@@ -18,9 +18,9 @@ package net.sakuramilk.TweakGS3.CpuControl;
 
 import java.util.ArrayList;
 
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.SettingManager;
-import net.sakuramilk.TweakGS3.Common.SysFs;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SettingManager;
+import net.sakuramilk.util.SysFs;
 import android.content.Context;
 
 public class CpuVoltageSetting extends SettingManager {

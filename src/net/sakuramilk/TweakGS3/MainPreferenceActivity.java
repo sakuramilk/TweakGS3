@@ -18,9 +18,8 @@ package net.sakuramilk.TweakGS3;
 
 import java.io.File;
 
-import net.sakuramilk.TweakGS3.Common.Constant;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.SystemCommand;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -44,6 +43,7 @@ public class MainPreferenceActivity extends PreferenceActivity {
 
          addPreferencesFromResource(R.xml.main_pref);
 
+         
         // check rooted
         if (!Misc.isSuperUserEnabled()) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -73,7 +73,7 @@ public class MainPreferenceActivity extends PreferenceActivity {
         }
 
         // auto backup
-        String backupDir = Misc.getSdcardPath(true) + Constant.TGS3_BACKUP_DIR;
+        String backupDir = Misc.getSdcardPath(true) + Config.TGS3_BACKUP_DIR;
         File file = new File(backupDir);
         if (!file.exists()) {
             PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
@@ -87,7 +87,6 @@ public class MainPreferenceActivity extends PreferenceActivity {
 
             final String backupPath = backupDir + "/" + Misc.getDateString();
             final Context context = this;
-
             final Handler handler = new Handler() {
         		@Override
                 public void handleMessage(Message msg) {
@@ -100,7 +99,7 @@ public class MainPreferenceActivity extends PreferenceActivity {
             Thread thread = new Thread(new Runnable() {
 				@Override
                 public void run() {
-                    SystemCommand.partition_backup(backupPath);
+                    SystemCommand.partition_backup_for_gs3(backupPath);
                     handler.sendEmptyMessage(0);
                 }
             });

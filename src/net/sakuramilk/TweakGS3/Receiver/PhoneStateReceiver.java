@@ -16,7 +16,7 @@
 
 package net.sakuramilk.TweakGS3.Receiver;
 
-import net.sakuramilk.TweakGS3.Common.Misc;
+import net.sakuramilk.util.Misc;
 import net.sakuramilk.TweakGS3.SoundAndVib.SoundAndVibSetting;
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -16,9 +16,9 @@
 
 package net.sakuramilk.TweakGS3.Service;
 
-import net.sakuramilk.TweakGS3.Common.Convert;
-import net.sakuramilk.TweakGS3.Common.RootProcess;
-import net.sakuramilk.TweakGS3.Common.SysFs;
+import net.sakuramilk.util.Convert;
+import net.sakuramilk.util.RootProcess;
+import net.sakuramilk.util.SysFs;
 import net.sakuramilk.TweakGS3.CpuControl.CpuControlSetting;
 import net.sakuramilk.TweakGS3.Display.DisplaySetting;
 import net.sakuramilk.TweakGS3.Dock.DockSetting;

@@ -17,8 +17,8 @@
 package net.sakuramilk.TweakGS3.Dock;
 
 import net.sakuramilk.TweakGS3.R;
-import net.sakuramilk.TweakGS3.Common.Misc;
-import net.sakuramilk.TweakGS3.Common.SystemCommand;
+import net.sakuramilk.util.Misc;
+import net.sakuramilk.util.SystemCommand;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
