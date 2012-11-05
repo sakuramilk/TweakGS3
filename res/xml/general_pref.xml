@@ -55,5 +55,11 @@
         android:title="@string/gsm_network_tweak_title"
         android:summaryOn="@string/gsm_network_tweak_summary_on"
         android:summaryOff="@string/gsm_network_tweak_summary_off" />
+    <CheckBoxPreference   
+        android:key="replace_key"
+        android:enabled="false"
+        android:title="@string/replace_key_title"
+        android:summaryOn="@string/replace_key_summary_on"
+        android:summaryOff="@string/replace_key_summary_off" />
 
 </PreferenceScreen>

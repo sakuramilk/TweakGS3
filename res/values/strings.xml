@@ -97,6 +97,9 @@
     <string name="gsm_network_tweak_title">3G network tweak</string>
     <string name="gsm_network_tweak_summary_on">3G network tweak enabled\nNotice: Take effect after reboot</string>
     <string name="gsm_network_tweak_summary_off">3G network tweak disabled\nNotice: Take effect after reboot</string>
+    <string name="replace_key_title">Replace back / menu key</string>
+    <string name="replace_key_summary_on">Replace back / menu key enabled</string>
+    <string name="replace_key_summary_off">Replace back / menu key disabled</string>
     <string name="sysprop_boot_sound_title">Boot sound</string>
     <string name="sysprop_boot_sound_summary_on">Boot sound enabled</string>
     <string name="sysprop_boot_sound_summary_off">Boot sound disabled</string>
