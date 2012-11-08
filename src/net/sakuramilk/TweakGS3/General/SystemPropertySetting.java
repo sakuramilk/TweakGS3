@@ -45,27 +45,25 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public boolean getBootSound() {
-        String ret = mTweakPorp.getValue("audioflinger.bootsnd", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("audioflinger.bootsnd", "0"));
     }
 
     public void setBootSound(boolean value) {
-        mTweakPorp.setValue("audioflinger.bootsnd", (value ? "1" : "0"));
+        mTweakPorp.setValue("audioflinger.bootsnd", Convert.toString(value));
     }
 
     public boolean getCameraSound() {
-        String ret = mTweakPorp.getValue("ro.camera.sound.forced", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("ro.camera.sound.forced", "0"));
     }
 
     public void setCameraSound(boolean value) {
-        mTweakPorp.setValue("ro.camera.sound.forced", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.camera.sound.forced", Convert.toString(value));
     }
 
     public String getLcdDensity() {
         String ret = mTweakPorp.getValue("ro.sf.lcd_density", null);
         if (ret == null) {
-            return SystemCommand.get_prop("ro.sf.lcd_density", "240");
+            return SystemCommand.get_prop("ro.sf.lcd_density", "320");
         }
         return ret;
     }
@@ -75,45 +73,40 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public boolean getCrtEffect() {
-        String ret = SystemCommand.get_prop("persist.tgs3.crt_effect", "0");
-        // NOTICE: crt effect enable is false, not enable is true.
-        return "0".equals(ret) ? true : false;
+        return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.crt_effect", "1"));
     }
 
     public void setCrtEffect(boolean value) {
-        SystemCommand.set_prop("persist.tgs3.crt_effect", (value ? "0" : "1"));
+        SystemCommand.set_prop("persist.tweak.crt_effect", Convert.toString(value));
+        SystemCommand.set_prop("persist.tgs3.crt_effect", Convert.toString(value));
     }
 
     public boolean getLogger() {
-        String ret = mTweakPorp.getValue("ro.tgs3.logger", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("ro.tgs3.logger", "0"));
     }
 
     public void setLogger(boolean value) {
-        mTweakPorp.setValue("ro.tgs3.logger", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.logger", Convert.toString(value));
     }
 
     public boolean getCifs() {
-        String ret = mTweakPorp.getValue("ro.tgs3.cifs", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("ro.tgs3.cifs", "0"));
     }
 
     public void setCifs(boolean value) {
-        mTweakPorp.setValue("ro.tgs3.cifs", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.cifs", Convert.toString(value));
     }
 
     public boolean getNtfs() {
-        String ret = mTweakPorp.getValue("ro.tgs3.ntfs", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("ro.tgs3.ntfs", "0"));
     }
 
     public void setNtfs(boolean value) {
-        mTweakPorp.setValue("ro.tgs3.ntfs", (value ? "1" : "0"));
+        mTweakPorp.setValue("ro.tgs3.ntfs", Convert.toString(value));
     }
 
     public boolean getJ4fs() {
-        String ret = mTweakPorp.getValue("ro.tgs3.j4fs", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(mTweakPorp.getValue("ro.tgs3.j4fs", "0"));
     }
 
     public void setJ4fs(boolean value) {
@@ -129,12 +122,11 @@ public class SystemPropertySetting extends SettingManager {
     }
 
     public boolean getSwitchExternal() {
-        String ret = SystemCommand.get_prop("persist.sys.vold.switchexternal", "0");
-        return "0".equals(ret) ? false : true;
+    	return Convert.toBoolean(SystemCommand.get_prop("persist.sys.vold.switchexternal", "0"));
     }
 
     public void setSwitchExternal(boolean value) {
-        SystemCommand.set_prop("persist.sys.vold.switchexternal", (value ? "1" : "0"));
+        SystemCommand.set_prop("persist.sys.vold.switchexternal", Convert.toString(value));
     }
 
     public String getMusicVolumeSteps() {
@@ -182,6 +174,7 @@ public class SystemPropertySetting extends SettingManager {
     @Override
     public void reset() {
         mTweakPorp.delete();
+        SystemCommand.set_prop("persist.tweak.crt_effect", "1");
         SystemCommand.set_prop("persist.sys.vold.switchexternal", "0");
         SystemCommand.set_prop("persist.tweak.music_vol_steps", "15");
         SystemCommand.set_prop("persist.tweak.scrolling_cache", "1");
