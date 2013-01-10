@@ -45,6 +45,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private SeekBarPreference mMusicVolumeSteps;
     private CheckBoxPreference mScrollingCache;
     private CheckBoxPreference mBottomActionBar;
+    private CheckBoxPreference mBottomTitleBar;
     private CheckBoxPreference mStatusBarIconAlpha;
     private boolean mChangeValue;
 
@@ -104,13 +105,13 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mSwitchExtarnal = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SWITCH_EXTERNAL);
         mSwitchExtarnal.setChecked(value);
         mSwitchExtarnal.setOnPreferenceChangeListener(this);
-        
+
         String volSteps = mSetting.getMusicVolumeSteps();
         mMusicVolumeSteps = (SeekBarPreference)findPreference(SystemPropertySetting.KEY_MUSIC_VOLUME_STEPS);
         mMusicVolumeSteps.setValue(100, 5, Integer.valueOf(volSteps));
         mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, volSteps));
         mMusicVolumeSteps.setOnPreferenceDoneListener(this);
-        
+
         value = mSetting.getScrollingCache();
         mScrollingCache = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SCROLLING_CACHE);
         mScrollingCache.setChecked(value);
@@ -120,7 +121,12 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mBottomActionBar = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_BOTTOM_ACTION_BAR);
         mBottomActionBar.setChecked(value);
         mBottomActionBar.setOnPreferenceChangeListener(this);
-        
+
+        value = mSetting.getBottomTitleBar();
+        mBottomTitleBar = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_BOTTOM_TITLE_BAR);
+        mBottomTitleBar.setChecked(value);
+        mBottomTitleBar.setOnPreferenceChangeListener(this);
+
         value = mSetting.getStatusBarIconAlpha();
         mStatusBarIconAlpha = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_STATUS_BAR_ICON_ALPHA);
         mStatusBarIconAlpha.setChecked(value);
@@ -178,6 +184,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             boolean newValue = (Boolean)objValue;
             mSetting.setBottomActionBar(newValue);
             mBottomActionBar.setChecked(newValue);
+            // not return true
+        } else if (mBottomTitleBar == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setBottomTitleBar(newValue);
+            mBottomTitleBar.setChecked(newValue);
             // not return true
         } else if (mStatusBarIconAlpha == preference) {
             boolean newValue = (Boolean)objValue;
