@@ -43,6 +43,7 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
     private ListPreference mUsbConfig;
     private CheckBoxPreference mSwitchExtarnal;
     private SeekBarPreference mMusicVolumeSteps;
+    private CheckBoxPreference mShowNavigationBar;
     private CheckBoxPreference mScrollingCache;
     private CheckBoxPreference mBottomActionBar;
     private CheckBoxPreference mBottomTitleBar;
@@ -112,6 +113,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
         mMusicVolumeSteps.setSummary(Misc.getCurrentValueText(this, volSteps));
         mMusicVolumeSteps.setOnPreferenceDoneListener(this);
 
+        value = mSetting.getShowNavigationBar();
+        mShowNavigationBar = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SHOW_NAVIGATION_BAR);
+        mShowNavigationBar.setChecked(value);
+        mShowNavigationBar.setOnPreferenceChangeListener(this);
+
         value = mSetting.getScrollingCache();
         mScrollingCache = (CheckBoxPreference)findPreference(SystemPropertySetting.KEY_SCROLLING_CACHE);
         mScrollingCache.setChecked(value);
@@ -174,6 +180,11 @@ public class SystemPropertyPreferenceActivity extends PreferenceActivity
             boolean newValue = (Boolean)objValue;
             mSetting.setSwitchExternal(newValue);
             mSwitchExtarnal.setChecked(newValue);
+            // not return true
+        } else if (mShowNavigationBar == preference) {
+            boolean newValue = (Boolean)objValue;
+            mSetting.setShowNavigationBar(newValue);
+            mShowNavigationBar.setChecked(newValue);
             // not return true
         } else if (mScrollingCache == preference) {
             boolean newValue = (Boolean)objValue;

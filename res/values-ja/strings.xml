@@ -124,6 +124,9 @@
     <string name="sysprop_switch_external_summary_on">SDカードのマウント先を切り替えます</string>
     <string name="sysprop_switch_external_summary_off">SDカードのマウント先を切り替えません</string>
     <string name="sysprop_music_volume_steps_title">音楽ボリュームのステップ</string>
+    <string name="sysprop_show_navigation_bar_title">ナビゲーションバー表示</string>
+    <string name="sysprop_show_navigation_bar_summary_on">ナビゲーションバー表示は有効</string>
+    <string name="sysprop_show_navigation_bar_summary_off">ナビゲーションバー表示は無効</string>
     <string name="sysprop_scrolling_cache_title">スクロールキャッシュ</string>
     <string name="sysprop_scrolling_cache_summary_on">スクロールキャッシュは有効</string>
     <string name="sysprop_scrolling_cache_summary_off">スクロールキャッシュは無効</string>

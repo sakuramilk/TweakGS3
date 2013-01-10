@@ -34,6 +34,7 @@ public class SystemPropertySetting extends SettingManager {
     public static final String KEY_USB_CONFIG = "sysprop_usb_config";
     public static final String KEY_SWITCH_EXTERNAL = "sysprop_switch_external";
     public static final String KEY_MUSIC_VOLUME_STEPS = "sysprop_music_volume_steps";
+    public static final String KEY_SHOW_NAVIGATION_BAR = "sysprop_show_navigation_bar";
     public static final String KEY_SCROLLING_CACHE = "sysprop_scrolling_cache";
     public static final String KEY_BOTTOM_ACTION_BAR = "sysprop_bottom_action_bar";
     public static final String KEY_BOTTOM_TITLE_BAR = "sysprop_bottom_title_bar";
@@ -138,6 +139,14 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.tweak.music_vol_steps", value);
     }
 
+    public boolean getShowNavigationBar() {
+    	return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.show_navi_bar", "0"));
+    }
+
+    public void setShowNavigationBar(boolean value) {
+    	SystemCommand.set_prop("persist.tweak.show_navi_bar", Convert.toString(value));
+    }
+
     public boolean getScrollingCache() {
     	return Convert.toBoolean(SystemCommand.get_prop("persist.tweak.scrolling_cache", "1"));
     }
@@ -186,6 +195,7 @@ public class SystemPropertySetting extends SettingManager {
         SystemCommand.set_prop("persist.tweak.crt_effect", "1");
         SystemCommand.set_prop("persist.sys.vold.switchexternal", "0");
         SystemCommand.set_prop("persist.tweak.music_vol_steps", "15");
+        SystemCommand.set_prop("persist.tweak.show_navigation_bar", "");
         SystemCommand.set_prop("persist.tweak.scrolling_cache", "1");
         SystemCommand.set_prop("persist.tweak.bottom_actionbar", "0");
         SystemCommand.set_prop("persist.tweak.bottom_titlebar", "0");

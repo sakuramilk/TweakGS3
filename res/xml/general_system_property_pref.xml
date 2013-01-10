@@ -71,6 +71,11 @@
         android:title="@string/sysprop_music_volume_steps_title"
         android:dialogTitle="@string/sysprop_music_volume_steps_title" />
     <CheckBoxPreference
+        android:key="sysprop_show_navigation_bar"
+        android:title="@string/sysprop_show_navigation_bar_title"
+        android:summaryOn="@string/sysprop_show_navigation_bar_summary_on"
+        android:summaryOff="@string/sysprop_show_navigation_bar_summary_off" />
+    <CheckBoxPreference
         android:key="sysprop_scrolling_cache"
         android:title="@string/sysprop_scrolling_cache_title"
         android:summaryOn="@string/sysprop_scrolling_cache_summary_on"
